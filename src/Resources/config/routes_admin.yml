@@ -1,0 +1,5 @@
+sulu_association_contact_api:
+    type: rest
+    prefix: /admin/api
+    resource: association_contact.controller.admin
+    name_prefix: sulu_association_contact.

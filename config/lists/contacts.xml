@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<list xmlns="http://schemas.sulu.io/list-builder/list">
+    <key>contacts</key>
+    <properties>
+        <property
+                name="displayType"
+                visibility="yes"
+                searchability="yes"
+                translation="association_contact.membership.display_type"
+        >
+            <field-name>displayType</field-name>
+            <entity-name>%sulu.model.contact.class%</entity-name>
+            <transformer type="bool"/>
+        </property>
+        <property
+                name="memberStatus"
+                visibility="yes"
+                searchability="yes"
+                translation="association_contact.membership.member_status"
+        >
+            <field-name>memberStatus</field-name>
+            <entity-name>%sulu.model.contact.class%</entity-name>
+        </property>
+        <property
+                name="memberSince"
+                visibility="no"
+                searchability="yes"
+                translation="association_contact.membership.member_since"
+        >
+            <field-name>memberSince</field-name>
+            <entity-name>%sulu.model.contact.class%</entity-name>
+            <transformer type="date"/>
+            <filter type="date" />
+        </property>
+        <property
+                name="activeMember"
+                visibility="no"
+                searchability="yes"
+                translation="association_contact.membership.active_member"
+        >
+            <field-name>activeMember</field-name>
+            <entity-name>%sulu.model.contact.class%</entity-name>
+            <transformer type="bool"/>
+        </property>
+    </properties>
+</list>

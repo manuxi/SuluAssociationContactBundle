@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<massive-search-mapping xmlns="http://massiveart.io/schema/dic/massive-search-mapping">
+    <mapping class="Manuxi\SuluAssociationContactBundle\Entity\Contact">
+        <index value="member" />
+        <id property="id" />
+        <title expr="object.getRestrictedName()" />
+        <description property="memberStatus" />
+        <url expr="object.getRoutePath()" />
+        <locale property="locale" />
+        <fields>
+            <field name="name" expr="object.getRestrictedName()" type="string" />
+            <field name="memberStatus" type="string" />
+            <field name="annotations" expr="object.getAnnotations()" type="string" />
+            <field name="motivation" expr="object.getMotivation()" type="string" />
+        </fields>
+    </mapping>
+</massive-search-mapping>

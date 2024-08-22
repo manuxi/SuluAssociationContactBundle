@@ -1,0 +1,140 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>association_contact</key>
+
+    <properties>
+        <section name="membershipBlock">
+            <meta>
+                <title>association_contact.section.membership</title>
+            </meta>
+            <properties>
+
+                <property name="memberStatus" type="single_select" colspan="6">
+                    <meta>
+                        <title>association_contact.membership.member_status</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" type="expression" value="service('association_contact.status_select').getDefaultValue()"/>
+                        <param name="values" type="expression" value="service('association_contact.status_select').getValues()"/>
+                    </params>
+                </property>
+
+                <property name="displayType" type="single_select" colspan="6">
+                    <meta>
+                        <title>association_contact.membership.display_type</title>
+                        <info_text lang="en">Can the member be shown on the website?</info_text>
+                        <info_text lang="de">Darf das Mitglied auf der Webseite gezeigt werden?</info_text>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="0"/>
+                        <param name="values" type="collection">
+                            <param name="0">
+                                <meta>
+                                    <title lang="en">Do not display</title>
+                                    <title lang="de">Keine Anzeige</title>
+                                </meta>
+                            </param>
+                            <param name="1">
+                                <meta>
+                                    <title lang="en">Firstname only</title>
+                                    <title lang="de">Nur Vorname</title>
+                                </meta>
+                            </param>
+                            <param name="2">
+                                <meta>
+                                    <title lang="en">First and Surname</title>
+                                    <title lang="de">Vor- und Nachname</title>
+                                </meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="activeMember" type="checkbox" colspan="3">
+                    <meta>
+                        <title>association_contact.membership.active_member</title>
+                    </meta>
+                </property>
+                <property name="memberSince" type="date" colspan="9">
+                    <meta>
+                        <title>association_contact.membership.member_since</title>
+                    </meta>
+                </property>
+
+                <property name="membershipSuspended" type="checkbox" colspan="3">
+                    <meta>
+                        <title>association_contact.membership.membership_suspended</title>
+                    </meta>
+                </property>
+                <property name="membershipSuspendedSince" type="date" colspan="9" disabledCondition="membershipSuspended != true">
+                    <meta>
+                        <title>association_contact.membership.membership_suspended_since</title>
+                    </meta>
+                </property>
+
+                <property name="membershipNotes" type="text_editor">
+                    <meta>
+                        <title>association_contact.membership.membership_notes</title>
+                    </meta>
+                </property>
+
+            </properties>
+        </section>
+
+        <section name="nameAdditionsBlock">
+            <meta>
+                <title>association_contact.section.name_additions</title>
+            </meta>
+            <properties>
+
+                <property name="memberPrefix" type="text_line" colspan="6">
+                    <meta>
+                        <title>association_contact.name_additions.member_prefix</title>
+                    </meta>
+                </property>
+                <property name="memberSuffix" type="text_line" colspan="6">
+                    <meta>
+                        <title>association_contact.name_additions.member_suffix</title>
+                    </meta>
+                </property>
+
+            </properties>
+        </section>
+
+        <section name="personalBlock">
+            <meta>
+                <title>association_contact.section.personal</title>
+            </meta>
+            <properties>
+
+                <property name="annotations" type="text_editor">
+                    <meta>
+                        <title>association_contact.personal.annotations</title>
+                    </meta>
+                </property>
+
+                <property name="motivation" type="text_editor">
+                    <meta>
+                        <title>association_contact.personal.motivation</title>
+                    </meta>
+                </property>
+
+                <property name="deceased" type="checkbox" colspan="3">
+                    <meta>
+                        <title>association_contact.personal.deceased</title>
+                    </meta>
+                </property>
+
+                <property name="deceasedDate" type="date" colspan="9" disabledCondition="deceased != true">
+                    <meta>
+                        <title>association_contact.personal.deceased_date</title>
+                    </meta>
+                </property>
+
+            </properties>
+        </section>
+    </properties>
+</form>
