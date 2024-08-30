@@ -32,6 +32,11 @@ class SuluAssociationContactExtension extends Extension implements PrependExtens
                             "routes" => [
                                 "detail" => "sulu_association_contact.get_association-contact"
                             ]
+                        ],
+                        "association_contact_settings" => [
+                            "routes" => [
+                                "detail" => 'association_contact_settings.get_association-contact-settings'
+                            ]
                         ]
                     ]
                 ]
@@ -64,8 +69,6 @@ class SuluAssociationContactExtension extends Extension implements PrependExtens
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . "/../../config"));
         $loader->load("services.xml");
 
-/*        $loaderYaml = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . "/../../config"));
-        $loaderYaml->load("routes_admin.yml");*/
     }
 
 }

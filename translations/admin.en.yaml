@@ -63,7 +63,7 @@ association_contact:
         plural:
             long:
                 active: "Active Members"
-                passive: "Passives Members"
+                passive: "Passive Members"
                 honorary: "Honorary Members"
                 supporting: "Supporting Members"
                 founding: "Founding Members"
@@ -73,5 +73,25 @@ association_contact:
                 external: "External Members"
                 dormant: "Dormant Members"
                 guest: "Guest Members"
+    settings:
+        title:
+            tab: "Members"
+            general: "Settings for Single view"
+            breadcrumbs: "Target pages for breadcrumbs"
+        toggle_header: "Display Header"
+        toggle_hero: "Display Default Hero"
+        toggle_breadcrumbs: "Display Breadcrumbs"
+        page_members: "Overview page All Members"
+        page_members_active: "Overview page Active Members"
+        page_members_passive: "Overview page Passive Members"
+        page_members_honorary: "Overview page Honorary Members"
+        page_members_supporting: "Overview page Supporting Members"
+        page_members_founding: "Overview page Founding Members"
+        page_members_youth: "Overview page Youth Members"
+        page_members_board: "Overview page Board Members"
+        page_members_probationary: "Overview page Probationary Members"
+        page_members_external: "Overview page External Members"
+        page_members_dormant: "Overview page Dormant Members"
+        page_members_guest: "Overview page Guest Members"
 
 sulu_activity.description.contacts.modified_data: "{userFullName} has modified the personal data of \"{resourceTitle}\"."

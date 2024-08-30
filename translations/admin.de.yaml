@@ -47,7 +47,7 @@ association_contact:
             probationary: "Mitglied auf Probe"
             external: "Auswärtiges Mitglied"
             dormant: "Ruhendes Mitglied"
-            guest: "Gast"
+            guest: "Gastmitglied"
         description:
             active: "Diese Mitglieder nehmen aktiv am Vereinsleben teil, z. B. durch Teilnahme an Veranstaltungen, Ausübung von Funktionen oder Übernahme von Aufgaben."
             passive: "Passive Mitglieder unterstützen den Verein finanziell, nehmen aber nicht aktiv am Vereinsleben teil."
@@ -59,7 +59,7 @@ association_contact:
             probationary: "Neue Mitglieder, die zunächst eine Probezeit durchlaufen, in der sie den Verein und dessen Aktivitäten kennenlernen können, bevor sie vollwertige Mitglieder werden."
             external: "Mitglieder, die nicht am Ort des Vereins wohnen und daher weniger an den Aktivitäten des Vereins teilnehmen können. Sie können manchmal reduzierte Beiträge zahlen oder haben besondere Bedingungen."
             dormant: "Mitglieder, die aus bestimmten Gründen (z. B. Krankheit, Auslandsaufenthalt) temporär keine aktive Rolle im Verein spielen, aber weiterhin Mitglied bleiben möchten."
-            guest: "Gäste"
+            guest: "Gastmitglieder"
         plural:
             long:
                 active: "Aktive Mitglieder"
@@ -72,6 +72,27 @@ association_contact:
                 probationary: "Mitglieder auf Probe"
                 external: "Auswärtige Mitglieder"
                 dormant: "Ruhende Mitglieder"
-                guest: "Gäste"
+                guest: "Gastmitglieder"
+    settings:
+        title:
+            tab: "Mitglieder"
+            general: "Einstellungen für Einzelansicht"
+            breadcrumbs: "Zielseiten für Breadcrumbs"
+        toggle_header: "Header anzeigen"
+        toggle_hero: "Standard Hero anzeigen"
+        toggle_banner: "Standard Banner anzeigen"
+        toggle_breadcrumbs: "Breadcrumbs anzeigen"
+        page_members: "Übersichtsseite Alle Mitglieder"
+        page_members_active: "Übersichtsseite Aktive Mitglieder"
+        page_members_passive: "Übersichtsseite Inaktive Mitglieder"
+        page_members_honorary: "Übersichtsseite Ehrenmitglieder"
+        page_members_supporting: "Übersichtsseite Fördermitglieder"
+        page_members_founding: "Übersichtsseite Gründungsmitglieder"
+        page_members_youth: "Übersichtsseite Jugendmitglieder"
+        page_members_board: "Übersichtsseite Vorstandsmitglieder"
+        page_members_probationary: "Übersichtsseite Mitglieder auf Probe"
+        page_members_external: "Übersichtsseite Auswärtige Mitglieder"
+        page_members_dormant: "Übersichtsseite Ruhende Mitglieder"
+        page_members_guest: "Übersichtsseite Gastmitglieder"
 
 sulu_activity.description.contacts.modified_data: "{userFullName} hat zusätzliche Daten von \"{resourceTitle}\" geändert."

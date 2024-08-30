@@ -1,0 +1,113 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="http://schemas.sulu.io/template/template"
+      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>association_contact_settings</key>
+
+    <properties>
+        <section name="settings-single-view">
+            <meta>
+                <title>association_contact.settings.title.general</title>
+            </meta>
+            <properties>
+                <property name="toggleHeader" type="checkbox" colspan="3">
+                    <meta>
+                        <title>association_contact.settings.toggle_header</title>
+                    </meta>
+                    <params>
+                        <param name="type" value="toggler"/>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="toggleHero" type="checkbox" colspan="3">
+                    <meta>
+                        <title>association_contact.settings.toggle_hero</title>
+                    </meta>
+                    <params>
+                        <param name="type" value="toggler"/>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="toggleBreadcrumbs" type="checkbox" colspan="3">
+                    <meta>
+                        <title>association_contact.settings.toggle_breadcrumbs</title>
+                    </meta>
+                    <params>
+                        <param name="type" value="toggler"/>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+        <section name="settings-breadcrumbs">
+            <meta>
+                <title>association_contact.settings.title.breadcrumbs</title>
+            </meta>
+            <properties>
+                <property name="pageMembers" type="single_page_selection" colspan="6">
+                    <meta>
+                        <title>association_contact.settings.page_members</title>
+                    </meta>
+                </property>
+                <property name="pageMembersActive" type="single_page_selection" colspan="6">
+                    <meta>
+                        <title>association_contact.settings.page_members_active</title>
+                    </meta>
+                </property>
+                <property name="pageMembersPassive" type="single_page_selection" colspan="6">
+                    <meta>
+                        <title>association_contact.settings.page_members_passive</title>
+                    </meta>
+                </property>
+                <property name="pageMembersHonorary" type="single_page_selection" colspan="6">
+                    <meta>
+                        <title>association_contact.settings.page_members_honorary</title>
+                    </meta>
+                </property>
+                <property name="pageMembersSupporting" type="single_page_selection" colspan="6">
+                    <meta>
+                        <title>association_contact.settings.page_members_supporting</title>
+                    </meta>
+                </property>
+                <property name="pageMembersFounding" type="single_page_selection" colspan="6">
+                    <meta>
+                        <title>association_contact.settings.page_members_founding</title>
+                    </meta>
+                </property>
+                <property name="pageMembersYouth" type="single_page_selection" colspan="6">
+                    <meta>
+                        <title>association_contact.settings.page_members_youth</title>
+                    </meta>
+                </property>
+                <property name="pageMembersBoard" type="single_page_selection" colspan="6">
+                    <meta>
+                        <title>association_contact.settings.page_members_board</title>
+                    </meta>
+                </property>
+                <property name="pageMembersProbationary" type="single_page_selection" colspan="6">
+                    <meta>
+                        <title>association_contact.settings.page_members_probationary</title>
+                    </meta>
+                </property>
+                <property name="pageMembersExternal" type="single_page_selection" colspan="6">
+                    <meta>
+                        <title>association_contact.settings.page_members_external</title>
+                    </meta>
+                </property>
+                <property name="pageMembersDormant" type="single_page_selection" colspan="6">
+                    <meta>
+                        <title>association_contact.settings.page_members_dormant</title>
+                    </meta>
+                </property>
+                <property name="pageMembersGuest" type="single_page_selection" colspan="6">
+                    <meta>
+                        <title>association_contact.settings.page_members_guest</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</form>

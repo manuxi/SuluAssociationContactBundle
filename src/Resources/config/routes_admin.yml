@@ -3,3 +3,8 @@ sulu_association_contact_api:
     prefix: /admin/api
     resource: association_contact.controller.admin
     name_prefix: sulu_association_contact.
+sulu_association_contact_settings_api:
+    type: rest
+    prefix: /admin/api
+    resource: association_contact_settings.controller.admin
+    name_prefix: association_contact_settings.
