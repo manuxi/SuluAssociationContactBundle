@@ -8,6 +8,8 @@
 
 I made this bundle to have the possibility to manage association properties in the Sulu contacts.
 
+![image](https://github.com/user-attachments/assets/44d7467d-316c-4433-a3e3-2eff0541bcad)
+
 ## 👩🏻‍🏭 Installation
 Install the package with:
 ```console
