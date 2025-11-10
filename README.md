@@ -1,5 +1,5 @@
 # SuluAssociationContactBundle!
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/manuxi/SuluAssociationContactBundle/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/manuxi/SuluAssociationContactBundle/blob/main/LICENSE)
 ![GitHub Tag](https://img.shields.io/github/v/tag/manuxi/SuluAssociationContactBundle)
 
 I made this bundle to have the possibility to manage association properties in the Sulu contacts.
