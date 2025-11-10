@@ -1,10 +1,6 @@
 # SuluAssociationContactBundle!
-<a href="https://github.com/manuxi/SuluAssociationContactBundle/blob/main/LICENSE" target="_blank">
-<img src="https://img.shields.io/github/license/manuxi/SuluAssociationContactBundle" alt="GitHub license">
-</a>
-<a href="https://github.com/manuxi/SuluAssociationContactBundle/tags" target="_blank">
-<img src="https://img.shields.io/github/v/tag/manuxi/SuluAssociationContactBundle" alt="GitHub license">
-</a>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/manuxi/SuluAssociationContactBundle/LICENSE)
+![GitHub Tag](https://img.shields.io/github/v/tag/manuxi/SuluAssociationContactBundle)
 
 I made this bundle to have the possibility to manage association properties in the Sulu contacts.
 
