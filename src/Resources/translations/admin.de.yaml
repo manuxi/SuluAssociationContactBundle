@@ -74,6 +74,7 @@ association_contact:
                 dormant: "Ruhende Mitglieder"
                 guest: "Gastmitglieder"
     settings:
+        nav: "Einstellungen"
         title:
             tab: "Mitglieder"
             general: "Einstellungen für Einzelansicht"

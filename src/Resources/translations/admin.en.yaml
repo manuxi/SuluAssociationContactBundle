@@ -74,6 +74,7 @@ association_contact:
                 dormant: "Dormant Members"
                 guest: "Guest Members"
     settings:
+        nav: "Settings"
         title:
             tab: "Members"
             general: "Settings for Single view"

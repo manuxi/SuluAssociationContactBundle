@@ -31,13 +31,13 @@ class AssociationContactSettingsAdmin extends Admin
             return;
         }
 
-        $settingsNavigationItem = $navigationItemCollection->get(Admin::SETTINGS_NAVIGATION_ITEM);
+        $contactsNavigationItem = $navigationItemCollection->get('sulu_contact.contacts');
 
-        $navigationItem = new NavigationItem('association_contact.settings.title');
+        $navigationItem = new NavigationItem('association_contact.settings.nav');
         $navigationItem->setPosition(30);
         $navigationItem->setView(static::TAB_VIEW);
 
-        $settingsNavigationItem?->addChild($navigationItem);
+        $contactsNavigationItem?->addChild($navigationItem);
     }
 
     public function configureViews(ViewCollection $viewCollection): void
@@ -58,7 +58,7 @@ class AssociationContactSettingsAdmin extends Admin
                 ->createFormViewBuilder(static::FORM_VIEW, '/details')
                 ->setResourceKey(AssociationContactSettings::RESOURCE_KEY)
                 ->setFormKey(AssociationContactSettings::FORM_KEY)
-                ->setTabTitle('association_contact.settings.title')
+                ->setTabTitle('association_contact.settings.title.tab')
                 ->addToolbarActions([new ToolbarAction('sulu_admin.save')])
                 ->setParent(static::TAB_VIEW)
         );
@@ -68,8 +68,9 @@ class AssociationContactSettingsAdmin extends Admin
     {
         return [
             self::SULU_ADMIN_SECURITY_SYSTEM => [
-                'Settings' => [
+                'Contacts' => [
                     AssociationContactSettings::SECURITY_CONTEXT => [
+                        PermissionTypes::VIEW,
                         PermissionTypes::EDIT,
                     ],
                 ],

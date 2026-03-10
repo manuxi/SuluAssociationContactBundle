@@ -191,6 +191,8 @@ class Contact extends SuluContact
     public function setLocale(string $locale): self
     {
         $this->locale = $locale;
+
+        return $this;
     }
 
     public function getRoutePath(): string

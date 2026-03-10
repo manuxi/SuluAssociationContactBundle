@@ -71,6 +71,7 @@ class AssociationContactSettingsController extends AbstractRestController implem
     private function getDataForEntity(AssociationContactSettings $entity): array
     {
         return [
+            'id' => $entity->getId() ?? '-',
             'toggleHeader' => $entity->getToggleHeader(),
             'toggleHero' => $entity->getToggleHero(),
             'toggleBreadcrumbs' => $entity->getToggleBreadcrumbs(),

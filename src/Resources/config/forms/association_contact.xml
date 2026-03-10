@@ -57,6 +57,10 @@
                     <meta>
                         <title>association_contact.membership.active_member</title>
                     </meta>
+                    <params>
+                        <param name="type" value="toggler"/>
+                        <param name="default_value" value="true"/>
+                    </params>
                 </property>
                 <property name="memberSince" type="date" colspan="9">
                     <meta>
@@ -68,6 +72,10 @@
                     <meta>
                         <title>association_contact.membership.membership_suspended</title>
                     </meta>
+                    <params>
+                        <param name="type" value="toggler"/>
+                        <param name="default_value" value="false"/>
+                    </params>
                 </property>
                 <property name="membershipSuspendedSince" type="date" colspan="9" disabledCondition="membershipSuspended != true">
                     <meta>
@@ -126,6 +134,10 @@
                     <meta>
                         <title>association_contact.personal.deceased</title>
                     </meta>
+                    <params>
+                        <param name="type" value="toggler"/>
+                        <param name="default_value" value="false"/>
+                    </params>
                 </property>
 
                 <property name="deceasedDate" type="date" colspan="9" disabledCondition="deceased != true">

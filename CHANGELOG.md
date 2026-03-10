@@ -37,3 +37,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `routes_admin.yml` (replaced by `routes_admin.yaml`)
 - Old `config/services.xml`
 - Old `config/packages/association_contact_settings_admin.yaml` (now in DI Extension)
+- MassiveSearch integration (`massive-search/Contact.xml`) — MassiveSearch was replaced by SEAL in Sulu 3

@@ -15,7 +15,7 @@ class AssociationContactSettings implements AuditableInterface
 
     public const RESOURCE_KEY = 'association_contact_settings';
     public const FORM_KEY = 'association_contact_settings';
-    public const SECURITY_CONTEXT = 'sulu.settings.association_contact';
+    public const SECURITY_CONTEXT = 'sulu.contacts.settings';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
