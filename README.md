@@ -1,20 +1,33 @@
-# SuluAssociationContactBundle!
+# SuluAssociationContactBundle
+
 <a href="https://github.com/manuxi/SuluAssociationContactBundle/blob/main/LICENSE" target="_blank">
 <img src="https://img.shields.io/github/license/manuxi/SuluAssociationContactBundle" alt="GitHub license">
 </a>
 <a href="https://github.com/manuxi/SuluAssociationContactBundle/tags" target="_blank">
-<img src="https://img.shields.io/github/v/tag/manuxi/SuluAssociationContactBundle" alt="GitHub license">
+<img src="https://img.shields.io/github/v/tag/manuxi/SuluAssociationContactBundle" alt="GitHub tag">
 </a>
 
-I made this bundle to have the possibility to manage association properties in the Sulu contacts.
+A Sulu CMS bundle for managing association and membership properties on contacts.
+It adds an extra tab to the contact edit form in the Sulu admin with fields like member status, membership dates, display preferences and more.
 
-## 👩🏻‍🏭 Installation
+![Form](docs/img/contact_form.de.png)
+
+**Deutsch?** Siehe [README.de.md](README.de.md)
+
+## Requirements
+
+- PHP >= 8.2
+- Sulu >= 3.0
+- Symfony >= 7.0
+
+## Installation
+
 Install the package with:
 ```console
 composer require manuxi/sulu-association-contact-bundle
 ```
-If you're *not* using Symfony Flex, you'll also
-need to add the bundle in your `config/bundles.php` file:
+
+If you're *not* using Symfony Flex, add the bundle in your `config/bundles.php` file:
 
 ```php
 return [
@@ -22,26 +35,25 @@ return [
     Manuxi\SuluAssociationContactBundle\SuluAssociationContactBundle::class => ['all' => true],
 ];
 ```
-Please add the following to your `routes_admin.yaml`:
+
+Add the following to your `config/routes/sulu_association_contact_admin.yaml`:
 ```yaml
 SuluAssociationContactBundle:
-    resource: '@SuluAssociationContactBundle/Resources/config/routes_admin.yml'
+    resource: '@SuluAssociationContactBundle/Resources/config/routes_admin.yaml'
 ```
-Last but not least the schema of the database needs to be updated.  
 
-Some properties in co_contacts will be created.  
+Update the database schema:
 
-See the needed queries with
-```
+```bash
+# Preview the SQL statements
 php bin/console doctrine:schema:update --dump-sql
-```  
-Update the schema by executing 
-```
+
+# Apply the changes
 php bin/console doctrine:schema:update --force
-```  
+```
 
-Make sure you only process the bundles schema updates!
+Make sure you only process this bundle's schema updates!
 
-## 🧶 Configuration
-There exists no configuration yet.
+## Configuration
 
+There is no configuration required. The bundle registers all necessary services, forms and routes automatically.

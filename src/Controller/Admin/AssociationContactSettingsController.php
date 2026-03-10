@@ -6,61 +6,74 @@ namespace Manuxi\SuluAssociationContactBundle\Controller\Admin;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\RouteResource;
-use HandcraftedInTheAlps\RestRoutingBundle\Routing\ClassResourceInterface;
 use Manuxi\SuluAssociationContactBundle\Entity\AssociationContactSettings;
 use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Security\SecuredControllerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-/**
- * @RouteResource("association-contact-settings")
- */
-class AssociationContactSettingsController extends AbstractRestController implements ClassResourceInterface, SecuredControllerInterface
+#[Route('/admin/api')]
+class AssociationContactSettingsController extends AbstractRestController implements SecuredControllerInterface
 {
-    private EntityManagerInterface $entityManager;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
+        private readonly EntityManagerInterface $entityManager,
         ViewHandlerInterface $viewHandler,
-        ?TokenStorageInterface $tokenStorage = null
+        ?TokenStorageInterface $tokenStorage = null,
     ) {
-        $this->entityManager = $entityManager;
-
         parent::__construct($viewHandler, $tokenStorage);
     }
 
+    #[Route(
+        '/association-contact-settings/{id}',
+        name: 'sulu_association_contact.get_settings',
+        defaults: ['id' => '-'],
+        methods: ['GET'],
+    )]
     public function getAction(): Response
     {
-        $applicationSettings = $this->entityManager->getRepository(AssociationContactSettings::class)->findOneBy([]);
+        $entity = $this->entityManager
+            ->getRepository(AssociationContactSettings::class)
+            ->findOneBy([]);
 
-        return $this->handleView($this->view($this->getDataForEntity($applicationSettings ?: new AssociationContactSettings())));
+        return new JsonResponse($this->getDataForEntity($entity ?: new AssociationContactSettings()));
     }
 
+    #[Route(
+        '/association-contact-settings/{id}',
+        name: 'sulu_association_contact.put_settings',
+        defaults: ['id' => '-'],
+        methods: ['PUT'],
+    )]
     public function putAction(Request $request): Response
     {
-        $applicationSettings = $this->entityManager->getRepository(AssociationContactSettings::class)->findOneBy([]);
-        if (!$applicationSettings) {
-            $applicationSettings = new AssociationContactSettings();
-            $this->entityManager->persist($applicationSettings);
+        $entity = $this->entityManager
+            ->getRepository(AssociationContactSettings::class)
+            ->findOneBy([]);
+
+        if (!$entity) {
+            $entity = new AssociationContactSettings();
+            $this->entityManager->persist($entity);
         }
 
         $data = $request->toArray();
-        $this->mapDataToEntity($data, $applicationSettings);
+        $this->mapDataToEntity($data, $entity);
         $this->entityManager->flush();
 
-        return $this->handleView($this->view($this->getDataForEntity($applicationSettings)));
+        return new JsonResponse($this->getDataForEntity($entity));
     }
 
-    protected function getDataForEntity(AssociationContactSettings $entity): array
+    /**
+     * @return array<string, mixed>
+     */
+    private function getDataForEntity(AssociationContactSettings $entity): array
     {
         return [
             'toggleHeader' => $entity->getToggleHeader(),
             'toggleHero' => $entity->getToggleHero(),
             'toggleBreadcrumbs' => $entity->getToggleBreadcrumbs(),
-
             'pageMembers' => $entity->getPageMembers(),
             'pageMembersActive' => $entity->getPageMembersActive(),
             'pageMembersPassive' => $entity->getPageMembersPassive(),
@@ -76,25 +89,70 @@ class AssociationContactSettingsController extends AbstractRestController implem
         ];
     }
 
-    protected function mapDataToEntity(array $data, AssociationContactSettings $entity): void
+    /**
+     * @param array<string, mixed> $data
+     */
+    private function mapDataToEntity(array $data, AssociationContactSettings $entity): void
     {
-        $entity->setToggleHeader($data['toggleHeader']);
-        $entity->setToggleHero($data['toggleHero']);
-        $entity->setToggleBreadcrumbs($data['toggleBreadcrumbs']);
+        if (\array_key_exists('toggleHeader', $data)) {
+            $entity->setToggleHeader($data['toggleHeader']);
+        }
 
-        $entity->setPageMembers($data['pageMembers']);
-        $entity->setPageMembersActive($data['pageMembersActive']);
-        $entity->setPageMembersPassive($data['pageMembersPassive']);
-        $entity->setPageMembersHonorary($data['pageMembersHonorary']);
-        $entity->setPageMembersSupporting($data['pageMembersSupporting']);
-        $entity->setPageMembersFounding($data['pageMembersFounding']);
-        $entity->setPageMembersYouth($data['pageMembersYouth']);
-        $entity->setPageMembersBoard($data['pageMembersBoard']);
-        $entity->setPageMembersProbationary($data['pageMembersProbationary']);
-        $entity->setPageMembersExternal($data['pageMembersExternal']);
-        $entity->setPageMembersDormant($data['pageMembersDormant']);
-        $entity->setPageMembersGuest($data['pageMembersGuest']);
+        if (\array_key_exists('toggleHero', $data)) {
+            $entity->setToggleHero($data['toggleHero']);
+        }
 
+        if (\array_key_exists('toggleBreadcrumbs', $data)) {
+            $entity->setToggleBreadcrumbs($data['toggleBreadcrumbs']);
+        }
+
+        if (\array_key_exists('pageMembers', $data)) {
+            $entity->setPageMembers($data['pageMembers']);
+        }
+
+        if (\array_key_exists('pageMembersActive', $data)) {
+            $entity->setPageMembersActive($data['pageMembersActive']);
+        }
+
+        if (\array_key_exists('pageMembersPassive', $data)) {
+            $entity->setPageMembersPassive($data['pageMembersPassive']);
+        }
+
+        if (\array_key_exists('pageMembersHonorary', $data)) {
+            $entity->setPageMembersHonorary($data['pageMembersHonorary']);
+        }
+
+        if (\array_key_exists('pageMembersSupporting', $data)) {
+            $entity->setPageMembersSupporting($data['pageMembersSupporting']);
+        }
+
+        if (\array_key_exists('pageMembersFounding', $data)) {
+            $entity->setPageMembersFounding($data['pageMembersFounding']);
+        }
+
+        if (\array_key_exists('pageMembersYouth', $data)) {
+            $entity->setPageMembersYouth($data['pageMembersYouth']);
+        }
+
+        if (\array_key_exists('pageMembersBoard', $data)) {
+            $entity->setPageMembersBoard($data['pageMembersBoard']);
+        }
+
+        if (\array_key_exists('pageMembersProbationary', $data)) {
+            $entity->setPageMembersProbationary($data['pageMembersProbationary']);
+        }
+
+        if (\array_key_exists('pageMembersExternal', $data)) {
+            $entity->setPageMembersExternal($data['pageMembersExternal']);
+        }
+
+        if (\array_key_exists('pageMembersDormant', $data)) {
+            $entity->setPageMembersDormant($data['pageMembersDormant']);
+        }
+
+        if (\array_key_exists('pageMembersGuest', $data)) {
+            $entity->setPageMembersGuest($data['pageMembersGuest']);
+        }
     }
 
     public function getSecurityContext(): string

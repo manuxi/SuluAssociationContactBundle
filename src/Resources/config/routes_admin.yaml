@@ -1,0 +1,12 @@
+sulu_association_contact_api:
+    resource: Manuxi\SuluAssociationContactBundle\Controller\Admin\AssociationContactController
+    type: attribute
+    prefix: /admin/api
+    options:
+        expose: true
+
+sulu_association_contact_settings_api:
+    resource: Manuxi\SuluAssociationContactBundle\Controller\Admin\AssociationContactSettingsController
+    type: attribute
+    options:
+        expose: true

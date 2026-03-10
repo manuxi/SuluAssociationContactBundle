@@ -1,5 +1,0 @@
-sulu_admin:
-    resources:
-        association_contact_settings:
-            routes:
-                detail: 'association_contact_settings.get_association_contact_settings'

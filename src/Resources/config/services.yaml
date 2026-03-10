@@ -1,0 +1,51 @@
+services:
+    Manuxi\SuluAssociationContactBundle\Controller\Admin\AssociationContactController:
+        public: true
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@sulu_activity.domain_event_collector'
+            - '@fos_rest.view_handler.default'
+            - '@security.token_storage'
+        tags:
+            - { name: sulu.context, context: admin }
+
+    Manuxi\SuluAssociationContactBundle\Controller\Admin\AssociationContactSettingsController:
+        public: true
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@fos_rest.view_handler.default'
+            - '@security.token_storage'
+        tags:
+            - { name: sulu.context, context: admin }
+
+    Manuxi\SuluAssociationContactBundle\Admin\AssociationContactAdmin:
+        arguments:
+            - '@sulu_admin.view_builder_factory'
+        tags:
+            - { name: sulu.admin }
+            - { name: sulu.context, context: admin }
+
+    Manuxi\SuluAssociationContactBundle\Admin\AssociationContactSettingsAdmin:
+        arguments:
+            - '@sulu_admin.view_builder_factory'
+            - '@sulu_security.security_checker'
+        tags:
+            - { name: sulu.admin }
+            - { name: sulu.context, context: admin }
+
+    Manuxi\SuluAssociationContactBundle\Content\Select\ContactStatusSelect:
+        public: true
+        arguments:
+            - '@translator.default'
+
+    Manuxi\SuluAssociationContactBundle\Twig\AssociationContactTwigExtension:
+        arguments:
+            - '@Manuxi\SuluAssociationContactBundle\Content\Select\ContactStatusSelect'
+        tags:
+            - { name: twig.extension }
+
+    Manuxi\SuluAssociationContactBundle\Twig\AssociationContactSettingsTwigExtension:
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+        tags:
+            - { name: twig.extension }

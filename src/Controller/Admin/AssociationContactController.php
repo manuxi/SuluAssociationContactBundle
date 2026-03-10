@@ -6,54 +6,44 @@ namespace Manuxi\SuluAssociationContactBundle\Controller\Admin;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\RouteResource;
-use HandcraftedInTheAlps\RestRoutingBundle\Routing\ClassResourceInterface;
 use Manuxi\SuluAssociationContactBundle\Domain\Event\ContactDataModifiedEvent;
 use Manuxi\SuluAssociationContactBundle\Entity\Contact;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\ContactBundle\Admin\ContactAdmin;
+use Sulu\Bundle\ContactBundle\Entity\ContactInterface;
 use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Security\SecuredControllerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-/**
- * @RouteResource("association-contact")
- */
-class AssociationContactController extends AbstractRestController implements ClassResourceInterface, SecuredControllerInterface
+#[Route(path: 'association-contact')]
+class AssociationContactController extends AbstractRestController implements SecuredControllerInterface
 {
-    private EntityManagerInterface $entityManager;
-    private DomainEventCollectorInterface $domainEventCollector;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly DomainEventCollectorInterface $domainEventCollector,
         ViewHandlerInterface $viewHandler,
-        DomainEventCollectorInterface $domainEventCollector,
-        ?TokenStorageInterface $tokenStorage = null
+        ?TokenStorageInterface $tokenStorage = null,
     ) {
         parent::__construct($viewHandler, $tokenStorage);
-        $this->entityManager = $entityManager;
-        $this->domainEventCollector = $domainEventCollector;
     }
 
+    #[Route(path: '/{id}', methods: ['GET'], name: 'sulu_association_contact.get')]
     public function getAction(int $id): Response
     {
-        $contact = $this->entityManager->getRepository(Contact::class)->find($id);
-        if (!$contact) {
-            throw new NotFoundHttpException();
-        }
+        $contact = $this->findContactOrFail($id);
 
-        return $this->handleView($this->view($this->getDataForEntity($contact)));
+        return new JsonResponse($this->getDataForEntity($contact));
     }
 
+    #[Route(path: '/{id}', methods: ['PUT'], name: 'sulu_association_contact.put')]
     public function putAction(Request $request, int $id): Response
     {
-        $contact = $this->entityManager->getRepository(Contact::class)->find($id);
-        if (!$contact) {
-            throw new NotFoundHttpException();
-        }
+        $contact = $this->findContactOrFail($id);
 
         $this->mapDataToEntity($request->request->all(), $contact);
 
@@ -61,64 +51,111 @@ class AssociationContactController extends AbstractRestController implements Cla
             new ContactDataModifiedEvent($contact, $request->request->all())
         );
 
-        $this->entityManager->persist($contact);
         $this->entityManager->flush();
 
-        return $this->handleView($this->view($this->getDataForEntity($contact)));
+        return new JsonResponse($this->getDataForEntity($contact));
+    }
+
+    private function findContactOrFail(int $id): Contact
+    {
+        $contact = $this->entityManager->getRepository(ContactInterface::class)->find($id);
+
+        if (!$contact) {
+            throw new NotFoundHttpException();
+        }
+
+        if (!$contact instanceof Contact) {
+            throw new \RuntimeException(\sprintf('Contact entity is not an instance of %s', Contact::class));
+        }
+
+        return $contact;
     }
 
     /**
      * @return array<string, mixed>
      */
-    protected function getDataForEntity(Contact $entity): array
+    private function getDataForEntity(Contact $entity): array
     {
         return [
             'id' => $entity->getId(),
             'memberStatus' => $entity->getMemberStatus(),
-            'memberSince' => $entity->getMemberSince(),
+            'memberSince' => $entity->getMemberSince()?->format('Y-m-d'),
             'activeMember' => $entity->isActiveMember(),
             'membershipSuspended' => $entity->isMembershipSuspended(),
-            'membershipSuspendedSince' => $entity->getMembershipSuspendedSince(),
+            'membershipSuspendedSince' => $entity->getMembershipSuspendedSince()?->format('Y-m-d'),
             'membershipNotes' => $entity->getMembershipNotes(),
             'memberPrefix' => $entity->getMemberPrefix(),
             'memberSuffix' => $entity->getMemberSuffix(),
             'annotations' => $entity->getAnnotations(),
             'motivation' => $entity->getMotivation(),
             'deceased' => $entity->isDeceased(),
-            'deceasedDate' => $entity->getDeceasedDate(),
-            'displayType' => $entity->getDisplayType()
+            'deceasedDate' => $entity->getDeceasedDate()?->format('Y-m-d'),
+            'displayType' => $entity->getDisplayType(),
         ];
     }
 
     /**
      * @param array<string, mixed> $data
      */
-    protected function mapDataToEntity(array $data, Contact $entity): void
+    private function mapDataToEntity(array $data, Contact $entity): void
     {
+        if (\array_key_exists('memberStatus', $data)) {
+            $entity->setMemberStatus($data['memberStatus']);
+        }
 
-        $entity->setMemberStatus($data['memberStatus']);
-        $entity->setActiveMember($data['activeMember']);
+        if (\array_key_exists('activeMember', $data)) {
+            $entity->setActiveMember((bool) $data['activeMember']);
+        }
 
-        $memberSince = $data['memberSince'] ? new \DateTimeImmutable($data['memberSince']) : null;
-        $entity->setMemberSince($memberSince);
+        if (\array_key_exists('memberSince', $data)) {
+            $entity->setMemberSince(
+                $data['memberSince'] ? new \DateTimeImmutable($data['memberSince']) : null
+            );
+        }
 
-        $entity->setMembershipSuspended($data['membershipSuspended']);
+        if (\array_key_exists('membershipSuspended', $data)) {
+            $entity->setMembershipSuspended((bool) $data['membershipSuspended']);
+        }
 
-        $membershipSuspendedSince = $data['membershipSuspendedSince'] ? new \DateTimeImmutable($data['membershipSuspendedSince']) : null;
-        $entity->setMembershipSuspendedSince($membershipSuspendedSince);
+        if (\array_key_exists('membershipSuspendedSince', $data)) {
+            $entity->setMembershipSuspendedSince(
+                $data['membershipSuspendedSince'] ? new \DateTimeImmutable($data['membershipSuspendedSince']) : null
+            );
+        }
 
-        $entity->setMembershipNotes($data['membershipNotes']);
-        $entity->setMemberPrefix($data['memberPrefix']);
-        $entity->setMemberSuffix($data['memberSuffix']);
+        if (\array_key_exists('membershipNotes', $data)) {
+            $entity->setMembershipNotes($data['membershipNotes']);
+        }
 
-        $entity->setAnnotations($data['annotations']);
-        $entity->setMotivation($data['motivation']);
-        $entity->setDeceased($data['deceased']);
+        if (\array_key_exists('memberPrefix', $data)) {
+            $entity->setMemberPrefix($data['memberPrefix']);
+        }
 
-        $deceasedDate = $data['deceasedDate'] ? new \DateTimeImmutable($data['deceasedDate']) : null;
-        $entity->setDeceasedDate($deceasedDate);
+        if (\array_key_exists('memberSuffix', $data)) {
+            $entity->setMemberSuffix($data['memberSuffix']);
+        }
 
-        $entity->setDisplayType($data['displayType']);
+        if (\array_key_exists('annotations', $data)) {
+            $entity->setAnnotations($data['annotations']);
+        }
+
+        if (\array_key_exists('motivation', $data)) {
+            $entity->setMotivation($data['motivation']);
+        }
+
+        if (\array_key_exists('deceased', $data)) {
+            $entity->setDeceased((bool) $data['deceased']);
+        }
+
+        if (\array_key_exists('deceasedDate', $data)) {
+            $entity->setDeceasedDate(
+                $data['deceasedDate'] ? new \DateTimeImmutable($data['deceasedDate']) : null
+            );
+        }
+
+        if (\array_key_exists('displayType', $data)) {
+            $entity->setDisplayType($data['displayType'] !== null ? (int) $data['displayType'] : null);
+        }
     }
 
     public function getSecurityContext(): string

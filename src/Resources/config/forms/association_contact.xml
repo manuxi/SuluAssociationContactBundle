@@ -17,8 +17,8 @@
                         <title>association_contact.membership.member_status</title>
                     </meta>
                     <params>
-                        <param name="default_value" type="expression" value="service('association_contact.status_select').getDefaultValue()"/>
-                        <param name="values" type="expression" value="service('association_contact.status_select').getValues()"/>
+                        <param name="default_value" type="expression" value="service('Manuxi\\SuluAssociationContactBundle\\Content\\Select\\ContactStatusSelect').getDefaultValue()"/>
+                        <param name="values" type="expression" value="service('Manuxi\\SuluAssociationContactBundle\\Content\\Select\\ContactStatusSelect').getValues()"/>
                     </params>
                 </property>
 
